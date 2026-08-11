@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
+@CrossOrigin("http://localhost:3000")
 public class RoomController {
 
     private RoomRepository roomRepository;
@@ -40,7 +41,7 @@ public class RoomController {
 
 
     //get room : before joining we have to check whether the room exists or not
-@GetMapping("/{roomId")
+    @GetMapping("/{roomId}")
     public ResponseEntity<?> joinRoom(
             @PathVariable String roomId)
     {
@@ -57,7 +58,7 @@ public class RoomController {
 
 
     //get messages of room
-
+    @GetMapping("/{roomId}/messages")
     public ResponseEntity<List<Message>> getMessages(
             @PathVariable String roomId,
             @RequestParam(value = "page",defaultValue="0",required=false)int page,
@@ -77,7 +78,7 @@ public class RoomController {
 
         List<Message> paginatedMessages = messages.subList(start, end);
 
-        return ResponseEntity.ok(messages);
+        return ResponseEntity.ok(paginatedMessages);
 
 
     }
